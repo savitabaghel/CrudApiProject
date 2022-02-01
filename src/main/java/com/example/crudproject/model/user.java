@@ -2,6 +2,7 @@ package com.example.crudproject.model;
 
 
 import com.sun.istack.NotNull;
+import lombok.Builder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import java.util.Date;
 
 @Validated
 @Entity
+@Builder
 @Table(name="users")
 
 public class user {
@@ -143,6 +145,7 @@ public class user {
 
     public user() {
     }
+
 
 
 }
