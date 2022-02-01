@@ -41,15 +41,15 @@ public class userController
 
     //method for read data of particular user
     @GetMapping("/api/{id}")
-     public ResponseEntity<Object> getbyid(@PathVariable("id")int id)
+     public user getbyid(@PathVariable("id")int id)
      {
          try {
              user result=userService.getoneuser(id);
-             return BaseResponce.generateResponse("Successfull",HttpStatus.OK,result);
+             return result;
          }
          catch (Exception e)
          {
-             return BaseResponce.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST,null);
+             return null;
          }
 
 
