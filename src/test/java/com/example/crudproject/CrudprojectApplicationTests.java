@@ -13,6 +13,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -58,18 +59,18 @@ class CrudprojectApplicationTests {
 	public void getByIdTest()
 	{
 		user user1=new user();
-		user1.setId(32);
+		user1.setId(31);
 		user1.setFirstname("koel");
 		user1.setLastname("bagh");
 		user1.setEmailid("savi@12345");
-		user1.setMobileno(56343);
+		user1.setMobileno(563324);
 		user1.setAddress1("usa");
 		user1.setAddress2("kael");
-		user1.setCreatedate(  new Timestamp(new Date().getTime()));
-		user1.setUpdatedate(new Timestamp(new Date().getTime()) );
+		user1.setCdate(new Date());
+		user1.setUdate(new Date());
 
-		when(userrepository.findById(32)).thenReturn(user1);
-		assertThat(userService.getoneuser(32)).isEqualTo(user1);
+		when(userrepository.findById(31)).thenReturn(user1);
+		assertThat(userService.getoneuser(31)).isEqualTo(user1);
 	}
 	@Test
 	public void saveUserTest()
@@ -83,8 +84,13 @@ class CrudprojectApplicationTests {
 	public void deleteUserTest()
 	{
 		user user1=new user(12,"man","ban","man@123",7865,"sac","usa",null,null);
+
+
+
 		userService.deluser(12);
-		verify(userrepository,times(1)).deleteById(12);
+		//verify(userrepository,times(1)).deleteById(12);
+		user optional = userrepository.findById(12);
+		assertEquals(null, optional);
 
 	}
 	@Test
@@ -98,8 +104,8 @@ class CrudprojectApplicationTests {
 		user1.setMobileno(56343);
 		user1.setAddress1("usa");
 		user1.setAddress2("kael");
-		user1.setCreatedate(  new Timestamp(new Date().getTime()));
-		user1.setUpdatedate(new Timestamp(new Date().getTime()) );
+		user1.setCdate(new Date());
+		user1.setUdate(new Date());
 
 		when(userrepository.findById(32)).thenReturn(user1);
 

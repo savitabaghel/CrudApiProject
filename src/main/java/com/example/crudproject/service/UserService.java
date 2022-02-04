@@ -4,10 +4,12 @@ import com.example.crudproject.ExceptionHandle.UsernotFoundException;
 import com.example.crudproject.model.user;
 import com.example.crudproject.repository.userRepository;
 import net.bytebuddy.implementation.bytecode.Throw;
+import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -43,14 +45,16 @@ public class UserService
     }
 
 
-    public boolean deluser(int id)
+    public user deluser(int id)
     {
-        if(!userrepository.existsById(id))  {
+        user user1=null;
+        user1 =userrepository.findById(id);
+        if(user1!=null)
+        {
             userrepository.deleteById(id);
-            return true;
+            return user1;
         }
-        else
-            return false;
+        return user1;
 
     }
 
@@ -64,7 +68,7 @@ public class UserService
         uu.setEmailid(u.getEmailid());
         uu.setLastname(u.getLastname());
         uu.setFirstname(u.getFirstname());
-        uu.setUpdatedate(u.getUpdatedate());
+        uu.setUdate(new Date());
 
         userrepository.save(uu);
         return uu;

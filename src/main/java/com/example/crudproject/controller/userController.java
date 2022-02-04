@@ -41,15 +41,15 @@ public class userController
 
     //method for read data of particular user
     @GetMapping("/api/{id}")
-     public user getbyid(@PathVariable("id")int id)
+     public ResponseEntity<Object> getbyid(@PathVariable("id")int id)
      {
          try {
              user result=userService.getoneuser(id);
-             return result;
+             return BaseResponce.generateResponse("Successfully fetched",HttpStatus.OK,result);
          }
          catch (Exception e)
          {
-             return null;
+             return BaseResponce.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS,null);
          }
 
 
@@ -76,14 +76,15 @@ public class userController
     @DeleteMapping("/api/{id}")
     public ResponseEntity<Object> deleteuser(@PathVariable("id") int id)
     {
-        try {
-            boolean result=userService.deluser(id);
+
+            user result=userService.deluser(id);
+            if(result!=null)
             return BaseResponce.generateResponse("Deleted",HttpStatus.OK,result);
-        }
-        catch (Exception e)
-        {
-            return BaseResponce.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST,null);
-        }
+
+
+        else {
+            return BaseResponce.generateResponse("not found user with this id", HttpStatus.BAD_REQUEST,null);}
+
 
 
 
